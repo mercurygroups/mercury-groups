@@ -38,7 +38,6 @@ const IMAGE_FIT_URLS: Record<string, string> = {
   'photo-1469854523086-cc02fe5d8800.svg': 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80',
   // fleet images
   'photo-1621135802920-133df287f89c.svg': 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80',
-  'photo-1540962351574-729f633c78f0.svg': 'https://images.unsplash.com/photo-1540962351574-729f633c78f0?auto=format&fit=crop&w=800&q=80',
   'photo-1618843479313-40f8afb4b4d8.svg': 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
   'toyota-land-cruiser.png': 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
   'toyota-hiace-luxury.png': 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
