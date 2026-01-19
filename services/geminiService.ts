@@ -6,6 +6,9 @@ import { GoogleGenAI } from "@google/genai";
 const apiKey = process.env.API_KEY;
 let ai: GoogleGenAI | null = null;
 
+// Debug logging (will show in browser console)
+console.log("Mercury AI Init: API Key present?", !!apiKey);
+
 if (apiKey) {
   try {
     ai = new GoogleGenAI({ apiKey });
