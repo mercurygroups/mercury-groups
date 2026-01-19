@@ -22,6 +22,38 @@ import {
 import AIChat from './components/AIChat';
 import { ViewState, ServiceItem, Car } from './types';
 
+// Toggle to use remote Unsplash fit URLs instead of local images.
+// Set to `true` to load remote Unsplash images (may increase network requests).
+const USE_REMOTE_IMAGES = false;
+
+// Map local image filenames (or paths) to Unsplash fit URLs you want the app to use.
+// Update values here to point to the Unsplash image you prefer for each local asset.
+const IMAGE_FIT_URLS: Record<string, string> = {
+  'photo-1506012787146-f92b2d7d6d96.svg': 'https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1920&q=80',
+  'photo-1436491865332-7a61a109cc05.svg': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
+  'photo-1549673934-297e2501a402.svg': 'https://images.unsplash.com/photo-1549673934-297e2501a402?auto=format&fit=crop&w=800&q=80',
+  'photo-1587825140708-dfaf72ae4b04.svg': 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&q=80',
+  'photo-1550355291-bbee04a92027.svg': 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80',
+  'photo-1540962351574-729f633c78f0.svg': 'https://images.unsplash.com/photo-1540962351574-729f633c78f0?auto=format&fit=crop&w=800&q=80',
+  'photo-1616432043562-3671ea0e5e85.svg': 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80',
+  'photo-1454165804606-c3d57bc86b40.svg': 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
+  'photo-1469854523086-cc02fe5d8800.svg': 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80',
+  // fleet images
+  'photo-1621135802920-133df287f89c.svg': 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80',
+  'photo-1520031441872-265e4ff70366.svg': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=800&q=80',
+  'photo-1618843479313-40f8afb4b4d8.svg': 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
+  'Toyota%20Land%20Cruiser.png': 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
+  'Toyota%20HiAce%20Luxury%2Cpng': 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
+  'photo-1533473359331-0135ef1b58bf.svg': 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80'
+};
+
+function getImageSrc(localPath: string) {
+  if (!USE_REMOTE_IMAGES) return localPath;
+  const parts = localPath.split('/');
+  const filename = parts[parts.length - 1];
+  return IMAGE_FIT_URLS[filename] || localPath;
+}
+
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>(ViewState.HOME);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -188,14 +220,14 @@ const App: React.FC = () => {
       features: ['Luxury finish', 'Off-road ready', 'Spacious', 'Quiet cabin'],
       priceRange: 'High'
     }
-    {
-      id: 'land-cruiser',
-      name: 'Toyota Land Cruiser',
-      category: 'SUV',
-      image: '/images/Toyota%20Land%20Cruiser.png',
-      features: ['Reliable', 'All-terrain', '7 Seater', 'Bulletproof options available'],
-      priceRange: 'Medium'
-    },
+  ];
+
+  const renderHeader = () => (
+    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          <div className="flex items-center cursor-pointer" onClick={() => setView(ViewState.HOME)}>
+            <div className="w-10 h-10 bg-brand-black rounded-lg flex items-center justify-center mr-3 shadow-md">
               <span className="text-white font-bold text-xl">M</span>
             </div>
             <div>
@@ -294,7 +326,7 @@ const App: React.FC = () => {
             >
               <div className="h-48 overflow-hidden relative bg-brand-black">
                 <img 
-                  src={service.image} 
+                  src={getImageSrc(service.image)} 
                   alt={service.title}
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
                   className="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80"
@@ -328,7 +360,7 @@ const App: React.FC = () => {
             <div key={car.id} className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group flex flex-col">
               <div className="relative h-64 overflow-hidden bg-brand-black">
                 <img 
-                  src={car.image} 
+                  src={getImageSrc(car.image)} 
                   alt={car.name} 
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90"
@@ -407,7 +439,7 @@ const App: React.FC = () => {
           <div className="relative group">
             <div className="absolute -inset-4 bg-brand-blue/20 rounded-2xl transform rotate-3 group-hover:rotate-0 transition duration-500"></div>
             <img 
-              src="/images/photo-1616432043562-3671ea0e5e85.svg" 
+              src={getImageSrc('/images/photo-1616432043562-3671ea0e5e85.svg')} 
               alt="Delivery Rider" 
               onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
               className="relative rounded-2xl shadow-2xl w-full h-auto object-cover hover:scale-[1.02] transition duration-500 grayscale hover:grayscale-0"
