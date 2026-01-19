@@ -305,40 +305,32 @@ const App: React.FC = () => {
         </div>
       </div>
     </div>
-    {
-      id: 'flights',
-      title: 'Flight Processing',
-      description: 'Domestic and International flight tickets with best rate guarantees.',
-      icon: <Plane className="w-8 h-8" />,
-      category: 'travel',
-      image: '/placeholder.svg'
-    },
-          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-             Flight Processing • Passport Processing • Visa Assistance
-          </p>
+         <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+           Flight Processing • Passport Processing • Visa Assistance
+         </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service) => (
-            <div 
-              key={service.id} 
+            <div
+              key={service.id}
               onClick={() => handleServiceClick(service)}
               className="bg-white rounded-2xl shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100 group overflow-hidden flex flex-col cursor-pointer"
             >
               <div className="h-48 overflow-hidden relative bg-brand-black">
-                <img 
-                  src={getImageSrc(service.image)} 
+                <img
+                  src={getImageSrc(service.image)}
                   alt={service.title}
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
                   className="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80"
-                {
-                  id: 'passport',
-                  title: 'Passport Processing',
-                  description: 'Fast-track processing and renewal assistance for international passports.',
-                  icon: <Globe className="w-8 h-8" />,
-                  category: 'travel',
-                  image: '/placeholder.svg'
-                },
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+              </div>
+              <div className="p-6 relative flex-grow">
+                <div className="absolute -top-10 right-6 bg-brand-white p-4 rounded-xl shadow-lg text-brand-blue border border-gray-100 group-hover:bg-brand-blue group-hover:text-white transition duration-300">
+                  {service.icon}
+                </div>
+                <h3 className="text-xl font-bold text-brand-black mb-3 mt-2">{service.title}</h3>
                 <p className="text-gray-500 leading-relaxed text-sm mb-4">{service.description}</p>
               </div>
             </div>
@@ -346,33 +338,25 @@ const App: React.FC = () => {
         </div>
       </div>
     </section>
-    {
-      id: 'visa',
-      title: 'Visa Assistance',
-      description: 'Expert guidance for tourist, conference, and business visas.',
-      icon: <FileCheck className="w-8 h-8" />,
-      category: 'travel',
-      image: '/placeholder.svg'
-    },
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {fleet.map((car) => (
             <div key={car.id} className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group flex flex-col">
               <div className="relative h-64 overflow-hidden bg-brand-black">
-                <img 
-                  src={getImageSrc(car.image)} 
-                  alt={car.name} 
+                <img
+                  src={getImageSrc(car.image)}
+                  alt={car.name}
                   onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90"
-                {
-                  id: 'cars',
-                  title: 'Luxury Rentals',
-                  description: 'Explore our premium fleet of SUVs, Sedans, and Supercars.',
-                  icon: <CarIcon className="w-8 h-8" />,
-                  category: 'luxury',
-                  image: '/placeholder.svg'
-                },
+                />
+                <div className="absolute top-4 right-4 bg-brand-black/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-white/20">
+                  {car.category}
+                </div>
+              </div>
+              <div className="p-6 flex-grow flex flex-col">
+                <h3 className="text-xl font-bold text-brand-black mb-2">{car.name}</h3>
+                <div className="space-y-2 mb-6 flex-grow">
                    {car.features.map((feature, idx) => (
                      <div key={idx} className="flex items-center text-gray-500 text-sm">
                        <CheckCircle2 className="w-4 h-4 text-brand-lightBlue mr-2 flex-shrink-0" />
@@ -392,14 +376,6 @@ const App: React.FC = () => {
         </div>
       </div>
     </section>
-    {
-      id: 'insurance',
-      title: 'Travel Insurance',
-      description: 'Comprehensive travel insurance policies to keep you protected.',
-      icon: <ShieldCheck className="w-8 h-8" />,
-      category: 'travel',
-      image: '/placeholder.svg'
-    },
               Mercury Logistics
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-6">
@@ -445,13 +421,6 @@ const App: React.FC = () => {
               onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
               className="relative rounded-2xl shadow-2xl w-full h-auto object-cover hover:scale-[1.02] transition duration-500 grayscale hover:grayscale-0"
             />
-              id: 'tours',
-              title: 'Tour Packages',
-              description: 'Curated holiday and conference packages tailored to your needs.',
-              icon: <MapPin className="w-8 h-8" />,
-              category: 'travel',
-              image: '/placeholder.svg'
-            }
     <section className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
