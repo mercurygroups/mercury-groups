@@ -1,4 +1,301 @@
 import React, { useState } from 'react';
+import {
+  Plane,
+  ArrowRight,
+  FileCheck,
+  ShieldCheck,
+  Briefcase,
+  Car as CarIcon,
+  Bike,
+  Globe,
+  MapPin,
+  Menu,
+  X,
+  Phone,
+  Mail,
+  CheckCircle2,
+  Building2,
+  Users
+} from 'lucide-react';
+import { ViewState, ServiceItem, Car } from './types';
+import AIChat from './components/AIChat';
+
+const USE_REMOTE_IMAGES = true;
+const IMAGE_FIT_URLS: Record<string, string> = {
+  'photo-1436491865332-7a61a109cc05.svg': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
+  'photo-1549673934-297e2501a402.svg': 'https://images.unsplash.com/photo-1549673934-297e2501a402?auto=format&fit=crop&w=800&q=80',
+  'photo-1587825140708-dfaf72ae4b04.svg': 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&q=80',
+  'photo-1550355291-bbee04a92027.svg': 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80',
+  'toyota-land-cruiser.png': 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
+  'toyota-hiace-luxury.png': 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
+  'private-jet.png': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=800&q=80',
+  'logistics-delivery.png': 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80'
+};
+
+function getImageSrc(localPath: string) {
+  if (!USE_REMOTE_IMAGES) return localPath;
+  const parts = localPath.split('/');
+  const filename = parts[parts.length - 1];
+  return IMAGE_FIT_URLS[filename] || localPath;
+}
+
+const App: React.FC = () => {
+  const [view, setView] = useState<ViewState>(ViewState.HOME);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [contactForm, setContactForm] = useState({ name: '', service: 'Flight Booking', message: '' });
+
+  const toggleMenu = () => setMobileMenuOpen((s) => !s);
+
+  const handleCarSelect = (carName: string) => {
+    setContactForm((prev) => ({ ...prev, service: `Rental: ${carName}`, message: `I am interested in renting the ${carName}.` }));
+    setView(ViewState.CONTACT);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleServiceClick = (service: ServiceItem) => {
+    if (service.id === 'cars') return setView(ViewState.FLEET);
+    if (service.id === 'logistics') return setView(ViewState.LOGISTICS);
+    setContactForm((prev) => ({ ...prev, service: service.title, message: `I am interested in ${service.title}.` }));
+    setView(ViewState.CONTACT);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const { name, service, message } = contactForm;
+    const subject = `Inquiry: ${service} - ${name}`;
+    const body = `Name: ${name}\nService Interest: ${service}\n\nMessage:\n${message}`;
+    const emailTo = 'mercurygroups247@gmail.com';
+    window.location.href = `mailto:${emailTo}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  const services: ServiceItem[] = [
+    { id: 'flights', title: 'Flight Processing', description: 'Domestic and International flight tickets.', icon: <Plane className="w-8 h-8" />, category: 'travel', image: '/images/photo-1436491865332-7a61a109cc05.svg' },
+    { id: 'passport', title: 'Passport Processing', description: 'Passport renewal and fast-track processing.', icon: <Globe className="w-8 h-8" />, category: 'travel', image: '/images/photo-1549673934-297e2501a402.svg' },
+    { id: 'visa', title: 'Visa Assistance', description: 'Tourist and business visa support.', icon: <FileCheck className="w-8 h-8" />, category: 'travel', image: '/images/photo-1587825140708-dfaf72ae4b04.svg' },
+    { id: 'cars', title: 'Luxury Rentals', description: 'Premium fleet for executive travel.', icon: <CarIcon className="w-8 h-8" />, category: 'luxury', image: '/images/photo-1550355291-bbee04a92027.svg' },
+    { id: 'jets', title: 'Private Jet Charter', description: 'Exclusive private jet rentals.', icon: <Plane className="w-8 h-8 rotate-45" />, category: 'luxury', image: '/images/private-jet.png' },
+    { id: 'logistics', title: 'Logistics & Delivery', description: 'Fast delivery bikes in major cities.', icon: <Bike className="w-8 h-8" />, category: 'logistics', image: '/images/logistics-delivery.png' }
+  ];
+
+  const fleet: Car[] = [
+    { id: 'land-cruiser', name: 'Toyota Land Cruiser', category: 'SUV', image: '/images/toyota-land-cruiser.png', features: ['Reliable', 'All-terrain'], priceRange: 'Medium' },
+    { id: 'hiace-bus', name: 'Toyota HiAce Luxury', category: 'Bus', image: '/images/toyota-hiace-luxury.png', features: ['14 Seater', 'AC'], priceRange: 'Low' }
+  ];
+
+  const renderHeader = () => (
+    <nav className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-gray-100 shadow-sm">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-20">
+          <div className="flex items-center cursor-pointer" onClick={() => setView(ViewState.HOME)}>
+            <div className="w-10 h-10 bg-brand-black rounded-lg flex items-center justify-center mr-3 shadow-md"><span className="text-white font-bold text-xl">M</span></div>
+            <div>
+              <h1 className="text-xl font-bold text-brand-black tracking-tight">MERCURY GROUPS</h1>
+              <p className="text-[10px] text-brand-blue font-semibold uppercase">Global Mobility</p>
+            </div>
+          </div>
+
+          <div className="hidden md:flex space-x-8 items-center">
+            <button onClick={() => setView(ViewState.HOME)} className={`${view === ViewState.HOME ? 'text-brand-blue font-semibold' : 'text-gray-600 hover:text-brand-black'} transition`}>Home</button>
+            <button onClick={() => setView(ViewState.SERVICES)} className={`${view === ViewState.SERVICES ? 'text-brand-blue font-semibold' : 'text-gray-600 hover:text-brand-black'} transition`}>Services</button>
+            <button onClick={() => setView(ViewState.FLEET)} className={`${view === ViewState.FLEET ? 'text-brand-blue font-semibold' : 'text-gray-600 hover:text-brand-black'} transition`}>Fleet</button>
+            <button onClick={() => setView(ViewState.LOGISTICS)} className={`${view === ViewState.LOGISTICS ? 'text-brand-blue font-semibold' : 'text-gray-600 hover:text-brand-black'} transition`}>Logistics</button>
+            <button onClick={() => setView(ViewState.ABOUT)} className={`${view === ViewState.ABOUT ? 'text-brand-blue font-semibold' : 'text-gray-600 hover:text-brand-black'} transition`}>About</button>
+            <button onClick={() => setView(ViewState.CONTACT)} className="bg-brand-black text-white px-6 py-2.5 rounded-full">Contact Us</button>
+          </div>
+
+          <div className="md:hidden">
+            <button onClick={toggleMenu} className="text-gray-800 p-2">{mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}</button>
+          </div>
+        </div>
+      </div>
+
+      {mobileMenuOpen && (
+        <div className="md:hidden bg-white border-t border-gray-100 py-4 px-4 space-y-3 shadow-lg">
+          <button onClick={() => { setView(ViewState.HOME); setMobileMenuOpen(false); }} className="block w-full text-left py-2">Home</button>
+          <button onClick={() => { setView(ViewState.SERVICES); setMobileMenuOpen(false); }} className="block w-full text-left py-2">Services</button>
+          <button onClick={() => { setView(ViewState.FLEET); setMobileMenuOpen(false); }} className="block w-full text-left py-2">Fleet</button>
+          <button onClick={() => { setView(ViewState.LOGISTICS); setMobileMenuOpen(false); }} className="block w-full text-left py-2">Logistics</button>
+          <button onClick={() => { setView(ViewState.ABOUT); setMobileMenuOpen(false); }} className="block w-full text-left py-2">About</button>
+          <button onClick={() => { setView(ViewState.CONTACT); setMobileMenuOpen(false); }} className="block w-full text-left py-2 font-bold">Contact Us</button>
+        </div>
+      )}
+    </nav>
+  );
+
+  const renderHero = () => (
+    <section className="relative bg-brand-black text-white py-24 lg:py-40 overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <img src="/images/private-jet.png" alt="Travel Hero" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }} className="w-full h-full object-cover opacity-40 grayscale" />
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/90 to-transparent" />
+      </div>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl">
+          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+            <span className="text-white">Processing of</span> <span className="text-brand-lightBlue">Domestic &amp; International Flights</span>
+          </h1>
+          <p className="text-xl text-gray-300 mb-8">Professional processing of flight bookings and passport applications.</p>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <button onClick={() => setView(ViewState.CONTACT)} className="bg-brand-blue text-white px-8 py-4 rounded-full font-bold">Book a Service <ArrowRight className="ml-2 w-5 h-5" /></button>
+            <button onClick={() => setView(ViewState.SERVICES)} className="border border-white text-white px-8 py-4 rounded-full font-bold">View Services</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  const renderServicesGrid = () => (
+    <section className="py-12 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <p className="mt-4 text-gray-600 max-w-2xl mx-auto">Flight Processing • Passport Processing • Visa Assistance</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
+          {services.map((service) => (
+            <div key={service.id} onClick={() => handleServiceClick(service)} className="bg-white p-6 rounded-lg shadow hover:shadow-lg cursor-pointer">
+              <div className="mb-4">{service.icon}</div>
+              <h3 className="text-lg font-semibold">{service.title}</h3>
+              <p className="text-sm text-gray-600 mt-2">{service.description}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  const renderFleet = () => (
+    <section className="py-16 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 text-center">
+          <h2 className="text-3xl font-bold">Premium Fleet</h2>
+          <p className="text-gray-600 mt-2">Luxury vehicles for interstate travel and comfort.</p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {fleet.map((car) => (
+            <div key={car.id} className="bg-white rounded-2xl overflow-hidden shadow-md">
+              <div className="relative h-64 bg-brand-black">
+                <img src={getImageSrc(car.image)} alt={car.name} onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }} className="w-full h-full object-cover" />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-bold mb-2">{car.name}</h3>
+                <p className="text-gray-500 text-sm mb-4">{car.features.join(' • ')}</p>
+                <button onClick={() => handleCarSelect(car.name)} className="bg-brand-black text-white px-5 py-3 rounded-lg w-full">Book Now</button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+
+  const renderLogistics = () => (
+    <section className="py-16 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 className="text-3xl font-bold mb-4">Swift Delivery Services</h2>
+          <p className="text-gray-600 mb-6">Efficient bike delivery services for goods and documents in Lagos, Abuja, and Port Harcourt.</p>
+          <div className="space-y-4">
+            <div className="flex items-center p-4 bg-gray-50 rounded-lg"><MapPin className="w-6 h-6 mr-4 text-brand-blue" /><div><h4 className="font-bold">Lagos Operations</h4><p className="text-sm text-gray-500">Island & Mainland</p></div></div>
+            <div className="flex items-center p-4 bg-gray-50 rounded-lg"><MapPin className="w-6 h-6 mr-4 text-brand-blue" /><div><h4 className="font-bold">Abuja Operations</h4><p className="text-sm text-gray-500">Central Area & Satellites</p></div></div>
+            <div className="flex items-center p-4 bg-gray-50 rounded-lg"><MapPin className="w-6 h-6 mr-4 text-brand-blue" /><div><h4 className="font-bold">Port Harcourt Operations</h4><p className="text-sm text-gray-500">Garden City</p></div></div>
+          </div>
+        </div>
+        <div className="relative">
+          <img src="/images/logistics-delivery.png" alt="Delivery Rider" onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }} className="rounded-2xl shadow-2xl w-full h-auto object-cover" />
+        </div>
+      </div>
+    </section>
+  );
+
+  const renderContact = () => (
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
+          <div className="grid md:grid-cols-2">
+            <div className="p-10 bg-brand-black text-white">
+              <h2 className="text-3xl font-bold mb-6">Get in Touch</h2>
+              <p className="text-gray-300 mb-8">Contact Mercury Groups for bookings and inquiries.</p>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4"><Mail className="w-6 h-6 text-brand-lightBlue mt-1" /><div><p className="text-sm text-gray-400">Email</p><a href="mailto:mercurygroups247@gmail.com" className="font-medium">mercurygroups247@gmail.com</a></div></div>
+                <div className="flex items-start space-x-4"><Phone className="w-6 h-6 text-brand-lightBlue mt-1" /><div><p className="text-sm text-gray-400">Phone</p><p className="font-medium">+234 901 190 2882</p></div></div>
+                <div className="flex items-start space-x-4"><Building2 className="w-6 h-6 text-brand-lightBlue mt-1" /><div><p className="text-sm text-gray-400">Office</p><p className="font-medium">Lagos | Abuja | Port Harcourt</p></div></div>
+              </div>
+            </div>
+            <div className="p-10">
+              <form className="space-y-5" onSubmit={handleContactSubmit}>
+                <div><label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label><input type="text" value={contactForm.name} onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })} className="w-full border rounded-lg px-4 py-2" required /></div>
+                <div><label className="block text-sm font-medium text-gray-700 mb-1">Service Interest</label><select value={contactForm.service} onChange={(e) => setContactForm({ ...contactForm, service: e.target.value })} className="w-full border rounded-lg px-4 py-2"><option>Flight Booking</option><option>Visa Assistance</option><option>Logistics/Delivery</option><option>Luxury Car Rental</option><option>Private Jet Charter</option></select></div>
+                <div><label className="block text-sm font-medium text-gray-700 mb-1">Message</label><textarea rows={4} value={contactForm.message} onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })} className="w-full border rounded-lg px-4 py-2" required /></div>
+                <button type="submit" className="w-full bg-brand-black text-white py-3 rounded-lg">Send Inquiry via Email</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+
+  const renderFooter = () => (
+    <footer className="bg-brand-black text-white pt-16 pb-8 border-t border-gray-800">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          <div>
+            <div className="flex items-center mb-6"><div className="w-8 h-8 bg-white rounded flex items-center justify-center mr-3"><span className="text-brand-black font-bold">M</span></div><span className="text-xl font-bold">MERCURY GROUPS</span></div>
+            <p className="text-gray-400 text-sm">Flight Booking • Visa Assistance • Luxury Rentals • Logistics</p>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold mb-6 text-brand-lightBlue">Quick Links</h3>
+            <ul className="space-y-3 text-sm text-gray-400"><li>About Us</li><li>Services</li><li>Contact</li></ul>
+          </div>
+          <div>
+            <h3 className="text-lg font-bold mb-6 text-brand-lightBlue">Business Compliance</h3>
+            <ul className="space-y-3 text-sm text-gray-400"><li className="flex items-center"><CheckCircle2 className="w-4 h-4 mr-2 text-brand-lightBlue" /> Registered Business Name</li><li className="flex items-center"><CheckCircle2 className="w-4 h-4 mr-2 text-brand-lightBlue" /> Tax ID (TIN) Verified</li></ul>
+          </div>
+        </div>
+        <div className="border-t border-gray-800 pt-8 text-center text-sm text-gray-500"><p>&copy; {new Date().getFullYear()} Mercury Groups. All rights reserved.</p></div>
+      </div>
+    </footer>
+  );
+
+  return (
+    <div className="min-h-screen flex flex-col font-sans text-brand-black">
+      {renderHeader()}
+      <main className="flex-grow">
+        {view === ViewState.HOME && (
+          <>
+            {renderHero()}
+            {renderServicesGrid()}
+            {renderLogistics()}
+            {renderContact()}
+          </>
+        )}
+
+        {view === ViewState.SERVICES && (
+          <div className="pt-10">{renderServicesGrid()}</div>
+        )}
+
+        {view === ViewState.FLEET && (
+          <div className="pt-10">{renderFleet()}</div>
+        )}
+
+        {view === ViewState.LOGISTICS && (
+          <div className="pt-10">{renderLogistics()}</div>
+        )}
+
+        {view === ViewState.ABOUT && (
+          <div className="pt-10">{renderContact()}</div>
+        )}
+
+        {view === ViewState.CONTACT && (
+          <div className="pt-10">{renderContact()}</div>
+        )}
+      </main>
+      {renderFooter()}
+      <AIChat />
+    </div>
+  );
+};
+
+export default App;
+import React, { useState } from 'react';
 import { 
   Plane, 
   ArrowRight,
