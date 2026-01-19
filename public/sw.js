@@ -1,4 +1,4 @@
-const CACHE_NAME = 'mercury-groups-v3';
+const CACHE_NAME = 'mercury-groups-v4';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -14,23 +14,47 @@ self.addEventListener('install', (event) => {
         return cache.addAll(urlsToCache);
       })
   );
+  self.skipWaiting();
 });
 
 // Cache and return requests
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request)
-      .then((response) => {
-        // Cache hit - return response
-        if (response) {
+  const requestUrl = new URL(event.request.url);
+
+  // For navigation requests (HTML pages), try network first, then cache
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request)
+        .then((response) => {
+          // If network works, return and cache the new version
+          if (response && response.status === 200) {
+            const responseClone = response.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseClone);
+            });
+          }
           return response;
-        }
-        return fetch(event.request);
-      })
-  );
+        })
+        .catch(() => {
+          // If network fails, fall back to cache
+          return caches.match(event.request);
+        })
+    );
+  } else {
+    // For other assets (JS, CSS, Images), try cache first, then network
+    event.respondWith(
+      caches.match(event.request)
+        .then((response) => {
+          if (response) {
+            return response;
+          }
+          return fetch(event.request);
+        })
+    );
+  }
 });
 
-// Update Service Worker
+// Update Service Worker and clean old caches
 self.addEventListener('activate', (event) => {
   const cacheWhitelist = [CACHE_NAME];
   event.waitUntil(
@@ -38,10 +62,12 @@ self.addEventListener('activate', (event) => {
       return Promise.all(
         cacheNames.map((cacheName) => {
           if (cacheWhitelist.indexOf(cacheName) === -1) {
+            console.log('Deleting old cache:', cacheName);
             return caches.delete(cacheName);
           }
         })
       );
     })
   );
+  self.clients.claim();
 });

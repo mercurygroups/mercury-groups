@@ -76,7 +76,7 @@ const App: React.FC = () => {
     {
       id: 'flights',
       title: 'Flight Processing',
-      description: 'Expert processing of Domestic and International flight tickets with best rate guarantees.',
+      description: 'Domestic and International flight tickets with best rate guarantees.',
       icon: <Plane className="w-8 h-8" />,
       category: 'travel',
       image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80'
@@ -92,7 +92,7 @@ const App: React.FC = () => {
     {
       id: 'visa',
       title: 'Visa Assistance',
-      description: 'Expert guidance for tourist, conference, and business visas to global destinations.',
+      description: 'Expert guidance for tourist, conference, and business visas.',
       icon: <FileCheck className="w-8 h-8" />,
       category: 'travel',
       image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&q=80'
@@ -100,7 +100,7 @@ const App: React.FC = () => {
     {
       id: 'cars',
       title: 'Luxury Rentals',
-      description: 'Explore our premium fleet of SUVs, Sedans, and Supercars for your comfort.',
+      description: 'Explore our premium fleet of SUVs, Sedans, and Supercars.',
       icon: <CarIcon className="w-8 h-8" />,
       category: 'luxury',
       image: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80'
@@ -108,7 +108,7 @@ const App: React.FC = () => {
     {
       id: 'jets',
       title: 'Private Jet Charter',
-      description: 'Exclusive private jet rentals for executive travel comfort and privacy.',
+      description: 'Exclusive private jet rentals for executive travel.',
       icon: <Plane className="w-8 h-8 rotate-45" />,
       category: 'luxury',
       image: 'https://images.unsplash.com/photo-1540962351574-729f633c78f0?auto=format&fit=crop&w=800&q=80'
@@ -124,7 +124,7 @@ const App: React.FC = () => {
     {
       id: 'insurance',
       title: 'Travel Insurance',
-      description: 'Comprehensive travel insurance policies to keep you protected abroad.',
+      description: 'Comprehensive travel insurance policies to keep you protected.',
       icon: <ShieldCheck className="w-8 h-8" />,
       category: 'travel',
       image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80'
@@ -246,22 +246,22 @@ const App: React.FC = () => {
         <img 
           src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1920&q=80" 
           alt="Travel Hero" 
-          className="w-full h-full object-cover opacity-40"
+          className="w-full h-full object-cover opacity-40 grayscale"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/80 to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/90 to-transparent"></div>
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-            Processing of <span className="text-brand-lightBlue">Domestic & International Flights</span>
+            <span className="text-white">Processing of</span> <span className="text-brand-lightBlue">Domestic & International Flights</span>
           </h1>
           <p className="text-xl text-gray-300 mb-8 font-light leading-relaxed">
-            We specialize in the <strong>processing of flight domestic and international</strong> and the <strong>processing of passport</strong> applications. 
-            Experience premium logistics and luxury rentals in Nigeria.
+            Professional processing of flight bookings and passport applications. 
+            Reliable logistics and luxury rentals in Nigeria.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
-            <button onClick={() => setView(ViewState.CONTACT)} className="bg-brand-blue hover:bg-blue-700 text-white px-8 py-4 rounded-full font-bold transition flex items-center justify-center shadow-lg hover:shadow-brand-blue/50">
+            <button onClick={() => setView(ViewState.CONTACT)} className="bg-brand-blue hover:bg-blue-700 text-white px-8 py-4 rounded-full font-bold transition flex items-center justify-center shadow-lg hover:shadow-brand-blue/50 border border-brand-blue">
               Book a Service <ArrowRight className="ml-2 w-5 h-5" />
             </button>
             <button onClick={() => setView(ViewState.SERVICES)} className="border border-white hover:bg-white hover:text-brand-black text-white px-8 py-4 rounded-full font-bold transition">
@@ -277,10 +277,10 @@ const App: React.FC = () => {
     <section className="py-20 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-brand-black mb-4">Our Core Services</h2>
+          <h2 className="text-3xl font-bold text-brand-black mb-4">Our Services</h2>
           <div className="w-20 h-1 bg-brand-blue mx-auto rounded"></div>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Specialized processing for flights, passports, and visas.
+             Flight Processing • Passport Processing • Visa Assistance
           </p>
         </div>
 
@@ -291,22 +291,16 @@ const App: React.FC = () => {
               onClick={() => handleServiceClick(service)}
               className="bg-white rounded-2xl shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100 group overflow-hidden flex flex-col cursor-pointer"
             >
-              <div className="h-48 overflow-hidden relative bg-gray-200">
+              <div className="h-48 overflow-hidden relative bg-brand-black">
                 <img 
                   src={service.image} 
                   alt={service.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition duration-700"
+                  className="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-                <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition duration-300 flex flex-col">
-                  <span className="font-bold flex items-center text-sm md:text-base">
-                    Learn More <ArrowRight className="w-4 h-4 ml-1" />
-                  </span>
-                  <span className="text-[10px] md:text-xs text-gray-200 mt-1 font-medium">Click to inquire</span>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
               </div>
               <div className="p-6 relative flex-grow">
-                 <div className="absolute -top-10 right-6 bg-white p-4 rounded-xl shadow-lg text-brand-blue group-hover:bg-brand-blue group-hover:text-white transition duration-300">
+                 <div className="absolute -top-10 right-6 bg-brand-white p-4 rounded-xl shadow-lg text-brand-blue border border-gray-100 group-hover:bg-brand-blue group-hover:text-white transition duration-300">
                     {service.icon}
                  </div>
                 <h3 className="text-xl font-bold text-brand-black mb-3 mt-2">{service.title}</h3>
@@ -323,27 +317,22 @@ const App: React.FC = () => {
     <section className="py-16 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-brand-black">Premium Fleet Selection</h2>
-          <p className="text-gray-600 mt-2">Choose from our exclusive collection of luxury vehicles for interstate travel, airport pickups, and special occasions.</p>
+          <h2 className="text-3xl font-bold text-brand-black">Premium Fleet</h2>
+          <p className="text-gray-600 mt-2">Luxury vehicles for interstate travel and comfort.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {fleet.map((car) => (
             <div key={car.id} className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group flex flex-col">
-              <div className="relative h-64 overflow-hidden bg-gray-100">
+              <div className="relative h-64 overflow-hidden bg-brand-black">
                 <img 
                   src={car.image} 
                   alt={car.name} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
+                  className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90"
                 />
-                <div className="absolute top-4 right-4 bg-brand-black/80 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">
+                <div className="absolute top-4 right-4 bg-brand-black/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-white/20">
                   {car.category}
                 </div>
-                {car.id === 'lambo-urus' && (
-                   <div className="absolute bottom-4 left-4 bg-yellow-500 text-black text-xs font-bold px-3 py-1 rounded-full flex items-center shadow-lg">
-                     <Star className="w-3 h-3 mr-1" /> Premium Choice
-                   </div>
-                )}
               </div>
               <div className="p-6 flex-grow flex flex-col">
                 <h3 className="text-xl font-bold text-brand-black mb-2">{car.name}</h3>
@@ -355,18 +344,12 @@ const App: React.FC = () => {
                      </div>
                    ))}
                 </div>
-                <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
-                  <div className="flex items-center text-gray-400 text-xs">
-                    <Gauge className="w-4 h-4 mr-1" />
-                    Chauffeur included
-                  </div>
-                  <button 
-                    onClick={() => handleCarSelect(car.name)}
-                    className="bg-brand-black hover:bg-brand-blue text-white px-5 py-2 rounded-lg text-sm font-semibold transition-colors shadow-sm"
-                  >
-                    Book Now
-                  </button>
-                </div>
+                <button 
+                  onClick={() => handleCarSelect(car.name)}
+                  className="bg-brand-black hover:bg-brand-blue text-white px-5 py-3 rounded-lg text-sm font-semibold transition-colors shadow-sm w-full"
+                >
+                  Book Now
+                </button>
               </div>
             </div>
           ))}
@@ -384,12 +367,10 @@ const App: React.FC = () => {
               Mercury Logistics
             </div>
             <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-6">
-              Swift Delivery Across Major Nigerian Cities
+              Swift Delivery Services
             </h2>
             <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-              We provide efficient bike delivery services for goods and documents. 
-              Whether it's the busy streets of Lagos, the administrative hub of Abuja, 
-              or the oil city of Port Harcourt, our riders ensure timely delivery.
+              Efficient bike delivery services for goods and documents in Lagos, Abuja, and Port Harcourt.
             </p>
             
             <div className="space-y-4 mb-8">
@@ -397,7 +378,7 @@ const App: React.FC = () => {
                 <MapPin className="text-brand-blue w-6 h-6 mr-4" />
                 <div>
                   <h4 className="font-bold text-brand-black">Lagos Operations</h4>
-                  <p className="text-sm text-gray-500">Island & Mainland coverage</p>
+                  <p className="text-sm text-gray-500">Island & Mainland</p>
                 </div>
               </div>
               <div className="flex items-center p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-brand-blue/30 transition">
@@ -411,7 +392,7 @@ const App: React.FC = () => {
                 <MapPin className="text-brand-blue w-6 h-6 mr-4" />
                 <div>
                   <h4 className="font-bold text-brand-black">Port Harcourt Operations</h4>
-                  <p className="text-sm text-gray-500">Garden City coverage</p>
+                  <p className="text-sm text-gray-500">Garden City</p>
                 </div>
               </div>
             </div>
@@ -425,7 +406,7 @@ const App: React.FC = () => {
             <img 
               src="https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80" 
               alt="Delivery Rider" 
-              className="relative rounded-2xl shadow-2xl w-full h-auto object-cover hover:scale-[1.02] transition duration-500"
+              className="relative rounded-2xl shadow-2xl w-full h-auto object-cover hover:scale-[1.02] transition duration-500 grayscale hover:grayscale-0"
             />
           </div>
         </div>
@@ -444,7 +425,7 @@ const App: React.FC = () => {
                </div>
               <h2 className="text-3xl font-bold mb-6 relative z-10">Get in Touch</h2>
               <p className="text-gray-300 mb-8 relative z-10">
-                Ready to plan your trip or schedule a delivery? Contact Mercury Groups today.
+                Contact Mercury Groups for bookings and inquiries.
               </p>
               
               <div className="space-y-6 relative z-10">
@@ -513,12 +494,9 @@ const App: React.FC = () => {
                     required
                   ></textarea>
                 </div>
-                <button type="submit" className="w-full bg-brand-blue text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition shadow-lg transform active:scale-95">
-                  Open Email App to Send
+                <button type="submit" className="w-full bg-brand-black hover:bg-brand-blue text-white font-bold py-3 rounded-lg transition shadow-lg transform active:scale-95">
+                  Send Inquiry via Email
                 </button>
-                <p className="text-xs text-gray-400 mt-3 text-center">
-                  This will open your default email app. Please click <strong>Send</strong> in the email window that appears.
-                </p>
               </form>
             </div>
           </div>
@@ -539,7 +517,7 @@ const App: React.FC = () => {
               <span className="text-xl font-bold">MERCURY GROUPS</span>
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
-              Your trusted partner for international travel, visa assistance, luxury transport, and logistics solutions across Nigeria.
+              Flight Booking • Visa Assistance • Luxury Rentals • Logistics
             </p>
           </div>
           <div>
@@ -547,17 +525,14 @@ const App: React.FC = () => {
             <ul className="space-y-3 text-sm text-gray-400">
               <li className="hover:text-white cursor-pointer transition">About Us</li>
               <li className="hover:text-white cursor-pointer transition">Services</li>
-              <li className="hover:text-white cursor-pointer transition">Terms & Conditions</li>
-              <li className="hover:text-white cursor-pointer transition">Privacy Policy</li>
-              <li className="hover:text-white cursor-pointer transition">Refund Policy</li>
+              <li className="hover:text-white cursor-pointer transition">Contact</li>
             </ul>
           </div>
           <div>
             <h3 className="text-lg font-bold mb-6 text-brand-lightBlue">Business Compliance</h3>
             <ul className="space-y-3 text-sm text-gray-400">
-              <li className="flex items-center"><CheckCircle2 className="w-4 h-4 mr-2 text-green-500" /> Registered Business Name</li>
-              <li className="flex items-center"><CheckCircle2 className="w-4 h-4 mr-2 text-green-500" /> Tax ID (TIN) Verified</li>
-              <li className="flex items-center"><CheckCircle2 className="w-4 h-4 mr-2 text-green-500" /> Licensed Travel Permit</li>
+              <li className="flex items-center"><CheckCircle2 className="w-4 h-4 mr-2 text-brand-lightBlue" /> Registered Business Name</li>
+              <li className="flex items-center"><CheckCircle2 className="w-4 h-4 mr-2 text-brand-lightBlue" /> Tax ID (TIN) Verified</li>
             </ul>
           </div>
         </div>
@@ -575,8 +550,7 @@ const App: React.FC = () => {
           <h2 className="text-3xl font-bold text-brand-black mb-4">About Mercury Groups</h2>
           <p className="max-w-3xl mx-auto text-gray-600">
             We are a full-service travel and logistics agency dedicated to simplifying movement for people and goods. 
-            From securing the most complex visas to ensuring your parcel arrives on time in Lagos, PH, or Abuja, 
-            we operate with transparency, speed, and integrity.
+            From securing the most complex visas to ensuring your parcel arrives on time, we operate with transparency and speed.
           </p>
         </div>
         
@@ -584,17 +558,17 @@ const App: React.FC = () => {
             <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition">
                 <Users className="w-12 h-12 mx-auto text-brand-blue mb-4"/>
                 <h3 className="font-bold text-lg mb-2">Customer First</h3>
-                <p className="text-gray-500 text-sm">Dedicated support team for all bookings and inquiries.</p>
+                <p className="text-gray-500 text-sm">Dedicated support team.</p>
             </div>
             <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition">
                 <ShieldCheck className="w-12 h-12 mx-auto text-brand-blue mb-4"/>
                 <h3 className="font-bold text-lg mb-2">Secure & Legal</h3>
-                <p className="text-gray-500 text-sm">Fully registered with verified pricing structures and policies.</p>
+                <p className="text-gray-500 text-sm">Fully registered.</p>
             </div>
             <div className="p-8 border border-gray-100 rounded-2xl shadow-sm hover:shadow-lg transition">
                 <Briefcase className="w-12 h-12 mx-auto text-brand-blue mb-4"/>
                 <h3 className="font-bold text-lg mb-2">Corporate Ready</h3>
-                <p className="text-gray-500 text-sm">Partnered with top hotels, airlines, and insurance providers.</p>
+                <p className="text-gray-500 text-sm">Professional partnerships.</p>
             </div>
         </div>
       </div>
@@ -638,7 +612,7 @@ const App: React.FC = () => {
              <div className="bg-brand-blue py-16 text-center text-white">
                 <h2 className="text-2xl font-bold mb-4">Don't see what you're looking for?</h2>
                 <p className="mb-8">We can source specific vehicles upon request.</p>
-                <button onClick={() => setView(ViewState.CONTACT)} className="bg-white text-brand-blue px-8 py-3 rounded-full font-bold shadow-lg">Contact Reservations</button>
+                <button onClick={() => setView(ViewState.CONTACT)} className="bg-white text-brand-blue px-8 py-3 rounded-full font-bold shadow-lg text-brand-black">Contact Reservations</button>
              </div>
            </div>
         )}
