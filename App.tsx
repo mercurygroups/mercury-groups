@@ -306,43 +306,26 @@ const App: React.FC = () => {
       </div>
     );
 
-    const renderServicesGrid = () => (
-           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-           Flight Processing • Passport Processing • Visa Assistance
-         </p>
-        </div>
+  const renderServicesGrid = () => (
+    <div className="text-center">
+      <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+        Flight Processing • Passport Processing • Visa Assistance
+      </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {services.map((service) => (
-            <div
-              key={service.id}
-              onClick={() => handleServiceClick(service)}
-              className="bg-white rounded-2xl shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100 group overflow-hidden flex flex-col cursor-pointer"
-            >
-              <div className="h-48 overflow-hidden relative bg-brand-black">
-                <img
-                  src={getImageSrc(service.image)}
-                  alt={service.title}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
-                  className="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-              </div>
-              <div className="p-6 relative flex-grow">
-                <div className="absolute -top-10 right-6 bg-brand-white p-4 rounded-xl shadow-lg text-brand-blue border border-gray-100 group-hover:bg-brand-blue group-hover:text-white transition duration-300">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-bold text-brand-black mb-3 mt-2">{service.title}</h3>
-                <p className="text-gray-500 leading-relaxed text-sm mb-4">{service.description}</p>
-              </div>
-            </div>
-          ))}
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
+        {services.map((service) => (
+          <div
+            key={service.title}
+            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition cursor-pointer"
+            onClick={() => handleServiceClick(service)}
+          >
+            <h3 className="text-lg font-semibold">{service.title}</h3>
+            <p className="text-sm text-gray-600 mt-2">{service.description}</p>
+          </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
-
-        </div>
 
   const renderFleet = () => (
     <section className="py-16 bg-gray-50">
