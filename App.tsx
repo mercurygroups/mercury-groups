@@ -20,6 +20,7 @@ import {
   Gauge
 } from 'lucide-react';
 import { ViewState, ServiceItem, Car } from './types';
+import AIChat from './components/AIChat';
 
 // Toggle to use remote Unsplash fit URLs instead of local images.
 // Set to `true` to load remote Unsplash images (may increase network requests).
