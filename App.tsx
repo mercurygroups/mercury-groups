@@ -24,7 +24,7 @@ import { ViewState, ServiceItem, Car } from './types';
 
 // Toggle to use remote Unsplash fit URLs instead of local images.
 // Set to `true` to load remote Unsplash images (may increase network requests).
-const USE_REMOTE_IMAGES = false;
+const USE_REMOTE_IMAGES = true;
 
 // Map local image filenames (or paths) to Unsplash fit URLs you want the app to use.
 // Update values here to point to the Unsplash image you prefer for each local asset.
