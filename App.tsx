@@ -194,7 +194,7 @@ const App: React.FC = () => {
       id: 'land-cruiser',
       name: 'Toyota Land Cruiser',
       category: 'SUV',
-      image: 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
+      image: '/images/Toyota Land Cruiser.png',
       features: ['Reliable', 'All-terrain', '7 Seater', 'Bulletproof options available'],
       priceRange: 'Medium'
     },
@@ -202,7 +202,7 @@ const App: React.FC = () => {
       id: 'hiace-bus',
       name: 'Toyota HiAce Luxury',
       category: 'Bus',
-      image: 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
+      image: '/images/Toyota HiAce Luxury.png',
       features: ['14 Seater', 'High roof', 'AC', 'Interstate travel'],
       priceRange: 'Low'
     },
