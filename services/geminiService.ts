@@ -1,10 +1,25 @@
 import { GoogleGenAI } from "@google/genai";
 
-// Initialize AI with the key directly as per guidelines.
+// Initialize AI with the key directly.
 // process.env.API_KEY is replaced by Vite's define plugin at build time.
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+// We handle empty keys gracefully to prevent the entire app from crashing on load.
+const apiKey = process.env.API_KEY;
+let ai: GoogleGenAI | null = null;
+
+if (apiKey) {
+  try {
+    ai = new GoogleGenAI({ apiKey });
+  } catch (error) {
+    console.error("Failed to initialize GoogleGenAI", error);
+  }
+}
 
 export const generateTravelResponse = async (userPrompt: string, history: { role: string; text: string }[]): Promise<string> => {
+  if (!ai) {
+    console.error("GoogleGenAI not initialized. Missing API Key.");
+    return "Configuration Error: API Key is missing. Please contact support.";
+  }
+
   try {
     const model = 'gemini-3-flash-preview';
     
