@@ -58,6 +58,10 @@ const App: React.FC = () => {
     message: ''
   });
 
+  // Mobile menu state for small screens
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const toggleMenu = () => setMobileMenuOpen((s) => !s);
+
 
   const handleCarSelect = (carName: string) => {
     setContactForm(prev => ({
