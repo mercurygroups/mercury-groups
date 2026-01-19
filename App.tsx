@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { 
   Plane, 
+  ArrowRight,
   FileCheck, 
   ShieldCheck, 
   Briefcase, 
@@ -38,8 +39,10 @@ const IMAGE_FIT_URLS: Record<string, string> = {
   'photo-1621135802920-133df287f89c.svg': 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80',
   'photo-1540962351574-729f633c78f0.svg': 'https://images.unsplash.com/photo-1540962351574-729f633c78f0?auto=format&fit=crop&w=800&q=80',
   'photo-1618843479313-40f8afb4b4d8.svg': 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
-  'Toyota%20Land%20Cruiser.png': 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
-  'Toyota%20HiAce%20Luxury%2Cpng': 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
+  'Toyota Land Cruiser.png': 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
+  'Toyota HiAce Luxury.png': 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
+  'private jet.png': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=800&q=80',
+  'logitics and delivery .png': 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80',
   'photo-1533473359331-0135ef1b58bf.svg': 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80'
 };
 
@@ -141,7 +144,7 @@ const App: React.FC = () => {
       description: 'Exclusive private jet rentals for executive travel.',
       icon: <Plane className="w-8 h-8 rotate-45" />,
       category: 'luxury',
-      image: '/images/private%20jet.png'
+      image: '/images/private jet.png'
     },
     {
       id: 'logistics',
@@ -149,7 +152,7 @@ const App: React.FC = () => {
       description: 'Fast delivery bikes for goods in Lagos, Port Harcourt, and Abuja.',
       icon: <Bike className="w-8 h-8" />,
       category: 'logistics',
-      image: '/images/logitics%20and%20delivery%20.png'
+      image: '/images/logitics and delivery .png'
     },
     {
       id: 'insurance',
