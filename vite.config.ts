@@ -5,6 +5,7 @@ export default defineConfig({
   plugins: [react()],
   define: {
     // This allows the build process to inject the API key from Render's environment variables
-    'process.env.API_KEY': JSON.stringify(process.env.API_KEY)
+    // We add || '' to ensure it doesn't return undefined, which would leave 'process.env' in the code causing a crash
+    'process.env.API_KEY': JSON.stringify(process.env.API_KEY || '')
   }
 });

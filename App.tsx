@@ -75,20 +75,20 @@ const App: React.FC = () => {
 
   const services: ServiceItem[] = [
     {
-      id: 'cars',
-      title: 'Luxury Rentals',
-      description: 'Explore our premium fleet of SUVs, Sedans, and Supercars for your comfort.',
-      icon: <CarIcon className="w-8 h-8" />,
-      category: 'luxury',
-      image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80' // Luxury car interior dark
-    },
-    {
       id: 'flights',
-      title: 'Flight Booking',
-      description: 'Seamless domestic and international flight processing with best rate guarantees.',
+      title: 'Flight Processing',
+      description: 'Expert processing of Domestic and International flight tickets with best rate guarantees.',
       icon: <Plane className="w-8 h-8" />,
       category: 'travel',
       image: 'https://images.unsplash.com/photo-1569154941061-e231b4725ef1?auto=format&fit=crop&w=800&q=80' // Airplane wing view
+    },
+    {
+      id: 'passport',
+      title: 'Passport Services',
+      description: 'Fast-track processing and renewal assistance for international passports.',
+      icon: <Globe className="w-8 h-8" />,
+      category: 'travel',
+      image: 'https://images.unsplash.com/photo-1555214068-4b9dc8c6dfd4?auto=format&fit=crop&w=800&q=80' // Single Passport Cover
     },
     {
       id: 'visa',
@@ -97,6 +97,14 @@ const App: React.FC = () => {
       icon: <FileCheck className="w-8 h-8" />,
       category: 'travel',
       image: 'https://images.unsplash.com/photo-1569949381149-d9d3c132a27a?auto=format&fit=crop&w=800&q=80' // Visa/Passport close up
+    },
+    {
+      id: 'cars',
+      title: 'Luxury Rentals',
+      description: 'Explore our premium fleet of SUVs, Sedans, and Supercars for your comfort.',
+      icon: <CarIcon className="w-8 h-8" />,
+      category: 'luxury',
+      image: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=80' // Luxury car interior dark
     },
     {
       id: 'jets',
@@ -123,14 +131,6 @@ const App: React.FC = () => {
       image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80' // Planning/Laptop
     },
     {
-      id: 'passport',
-      title: 'Passport Services',
-      description: 'Fast-track processing and renewal assistance for international passports.',
-      icon: <Globe className="w-8 h-8" />,
-      category: 'travel',
-      image: 'https://images.unsplash.com/photo-1555214068-4b9dc8c6dfd4?auto=format&fit=crop&w=800&q=80' // Single Passport Cover
-    },
-    {
       id: 'tours',
       title: 'Tour Packages',
       description: 'Curated holiday and conference packages tailored to your needs.',
@@ -145,65 +145,49 @@ const App: React.FC = () => {
       id: 'lambo-urus',
       name: 'Lamborghini Urus',
       category: 'Sport',
-      image: 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80', // Yellow Urus
-      features: ['Super SUV', 'Yellow/Exotic', 'Chauffeur Optional', '0-100 in 3.6s'],
-      priceRange: 'Premium'
+      image: 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80',
+      features: ['650 HP', '0-60 in 3.6s', 'Leather Interior', 'Premium Sound'],
+      priceRange: 'High'
     },
     {
-      id: 'lc-prado',
+      id: 'g-wagon',
+      name: 'Mercedes-Benz G-Wagon',
+      category: 'SUV',
+      image: 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=800&q=80',
+      features: ['Off-road capability', 'Luxury interior', 'Spacious', 'Iconic design'],
+      priceRange: 'High'
+    },
+    {
+      id: 's-class',
+      name: 'Mercedes-Benz S-Class',
+      category: 'Sedan',
+      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
+      features: ['Executive comfort', 'Massage seats', 'Advanced safety', 'Smooth ride'],
+      priceRange: 'Medium'
+    },
+    {
+      id: 'land-cruiser',
       name: 'Toyota Land Cruiser',
       category: 'SUV',
-      image: 'https://images.unsplash.com/photo-1594502184342-28efcb0a5748?auto=format&fit=crop&w=800&q=80', // Black SUV Front
-      features: ['Executive Black', 'Bulletproof Available', 'Escort Services', '7 Seater'],
-      priceRange: 'Standard'
+      image: 'https://images.unsplash.com/photo-1594502184342-2e12f877aa71?auto=format&fit=crop&w=800&q=80',
+      features: ['Reliable', 'All-terrain', '7 Seater', 'Bulletproof options available'],
+      priceRange: 'Medium'
     },
     {
-      id: 'lexus-lx570-black',
-      name: 'Lexus LX 570',
+      id: 'hiace-bus',
+      name: 'Toyota HiAce Luxury',
+      category: 'Bus',
+      image: 'https://images.unsplash.com/photo-1625055694784-60c774b73520?auto=format&fit=crop&w=800&q=80',
+      features: ['14 Seater', 'High roof', 'AC', 'Interstate travel'],
+      priceRange: 'Low'
+    },
+    {
+      id: 'lexus-lx',
+      name: 'Lexus LX 600',
       category: 'SUV',
-      image: 'https://images.unsplash.com/photo-1629897009778-98e6b19a1651?auto=format&fit=crop&w=800&q=80', // Black Lexus
-      features: ['V8 Engine', 'Spindle Grille', 'Black Edition', 'VIP Transport'],
+      image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
+      features: ['Luxury finish', 'Off-road ready', 'Spacious', 'Quiet cabin'],
       priceRange: 'High'
-    },
-    {
-      id: 'range-rover-velar',
-      name: 'Range Rover Velar',
-      category: 'SUV',
-      image: 'https://images.unsplash.com/photo-1606220838315-056192d5e927?auto=format&fit=crop&w=800&q=80', // Black Range Rover
-      features: ['Sleek Design', 'Black Pack', 'Meridian Sound', 'All-Terrain'],
-      priceRange: 'High'
-    },
-    {
-      id: 'mercedes-gle-black',
-      name: 'Mercedes-Benz GLE',
-      category: 'SUV',
-      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80', // Black Mercedes
-      features: ['4MATIC', 'Black Exterior', 'Executive Class', 'Airport Transfer'],
-      priceRange: 'Standard'
-    },
-    {
-      id: 'lexus-lx-white',
-      name: 'Lexus LX 570 (White)',
-      category: 'SUV',
-      image: 'https://images.unsplash.com/photo-1594953335073-7e28b17726cb?auto=format&fit=crop&w=800&q=80', // White SUV
-      features: ['Pearl White', 'Reclining Rear Seats', 'Rear Entertainment', 'Smooth Ride'],
-      priceRange: 'High'
-    },
-    {
-      id: 'mercedes-gle-white',
-      name: 'Mercedes-Benz GLE Coupe',
-      category: 'SUV',
-      image: 'https://images.unsplash.com/photo-1605559424843-9e4c2287f386?auto=format&fit=crop&w=800&q=80', // White Coupe SUV
-      features: ['AMG Line', 'White Finish', 'Panoramic Roof', 'Comfort Mode'],
-      priceRange: 'High'
-    },
-    {
-      id: 'audi-q7',
-      name: 'Audi Q7 S-Line',
-      category: 'SUV',
-      image: 'https://images.unsplash.com/photo-1606611013016-969c19ba27bb?auto=format&fit=crop&w=800&q=80', // Black Audi
-      features: ['Quattro AWD', '7 Seats', 'Black Optic', 'Modern Tech'],
-      priceRange: 'Standard'
     }
   ];
 
@@ -271,18 +255,18 @@ const App: React.FC = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-            Your Gateway to <span className="text-brand-lightBlue">Global Mobility</span>
+            Processing of <span className="text-brand-lightBlue">Domestic & International Flights</span>
           </h1>
           <p className="text-xl text-gray-300 mb-8 font-light leading-relaxed">
-            From private jets and luxury interstate travel to swift logistics in Lagos, Abuja, and PH. 
-            We handle your visas, passports, and flights with precision.
+            We handle everything from Flight Processing and Visa Assistance to Passport Renewals. 
+            Experience premium logistics and luxury rentals in Nigeria.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button onClick={() => setView(ViewState.CONTACT)} className="bg-brand-blue hover:bg-blue-700 text-white px-8 py-4 rounded-full font-bold transition flex items-center justify-center shadow-lg hover:shadow-brand-blue/50">
               Book a Service <ArrowRight className="ml-2 w-5 h-5" />
             </button>
             <button onClick={() => setView(ViewState.SERVICES)} className="border border-white hover:bg-white hover:text-brand-black text-white px-8 py-4 rounded-full font-bold transition">
-              Explore Services
+              View Services
             </button>
           </div>
         </div>
@@ -297,7 +281,7 @@ const App: React.FC = () => {
           <h2 className="text-3xl font-bold text-brand-black mb-4">Our Core Services</h2>
           <div className="w-20 h-1 bg-brand-blue mx-auto rounded"></div>
           <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-            Comprehensive solutions for travelers and businesses. Reliability and luxury combined.
+            Specialized processing for flights, passports, and visas.
           </p>
         </div>
 
