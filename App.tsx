@@ -12,35 +12,35 @@ import {
   X, 
   Phone, 
   Mail, 
-  ArrowRight,
+      image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
   CheckCircle2,
   Building2,
   Users,
   Star,
   Gauge
 } from 'lucide-react';
-import AIChat from './components/AIChat';
+      image: 'https://images.unsplash.com/photo-1549673934-297e2501a402?auto=format&fit=crop&w=800&q=80',
 import { ViewState, ServiceItem, Car } from './types';
 
 // Toggle to use remote Unsplash fit URLs instead of local images.
 // Set to `true` to load remote Unsplash images (may increase network requests).
 const USE_REMOTE_IMAGES = true;
 
-// Map local image filenames (or paths) to Unsplash fit URLs you want the app to use.
+      image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&q=80',
 // Update values here to point to the Unsplash image you prefer for each local asset.
 const IMAGE_FIT_URLS: Record<string, string> = {
   'photo-1506012787146-f92b2d7d6d96.svg': 'https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1920&q=80',
   'photo-1436491865332-7a61a109cc05.svg': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
   'photo-1549673934-297e2501a402.svg': 'https://images.unsplash.com/photo-1549673934-297e2501a402?auto=format&fit=crop&w=800&q=80',
   'photo-1587825140708-dfaf72ae4b04.svg': 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&q=80',
-  'photo-1550355291-bbee04a92027.svg': 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80',
   'photo-1540962351574-729f633c78f0.svg': 'https://images.unsplash.com/photo-1540962351574-729f633c78f0?auto=format&fit=crop&w=800&q=80',
   'photo-1616432043562-3671ea0e5e85.svg': 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80',
   'photo-1454165804606-c3d57bc86b40.svg': 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
   'photo-1469854523086-cc02fe5d8800.svg': 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80',
   // fleet images
   'photo-1621135802920-133df287f89c.svg': 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80',
-  'photo-1520031441872-265e4ff70366.svg': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=800&q=80',
+      image: 'https://images.unsplash.com/photo-1540962351574-729f633c78f0?auto=format&fit=crop&w=800&q=80',
   'photo-1618843479313-40f8afb4b4d8.svg': 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
   'Toyota%20Land%20Cruiser.png': 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
   'Toyota%20HiAce%20Luxury%2Cpng': 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
@@ -48,22 +48,21 @@ const IMAGE_FIT_URLS: Record<string, string> = {
 };
 
 function getImageSrc(localPath: string) {
-  if (!USE_REMOTE_IMAGES) return localPath;
-  const parts = localPath.split('/');
+      image: 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80',
   const filename = parts[parts.length - 1];
   return IMAGE_FIT_URLS[filename] || localPath;
 }
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>(ViewState.HOME);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
   const [contactForm, setContactForm] = useState({
     name: '',
     service: 'Flight Booking',
     message: ''
   });
 
-  const toggleMenu = () => setMobileMenuOpen(!mobileMenuOpen);
+      image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80',
 
   const handleCarSelect = (carName: string) => {
     setContactForm(prev => ({
@@ -176,7 +175,7 @@ const App: React.FC = () => {
       id: 'lambo-urus',
       name: 'Lamborghini Urus',
       category: 'Sport',
-      image: '/images/photo-1621135802920-133df287f89c.svg',
+      image: 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80',
       features: ['650 HP', '0-60 in 3.6s', 'Leather Interior', 'Premium Sound'],
       priceRange: 'High'
     },
@@ -184,7 +183,7 @@ const App: React.FC = () => {
       id: 'g-wagon',
       name: 'Mercedes-Benz G-Wagon',
       category: 'SUV',
-      image: '/images/photo-1520031441872-265e4ff70366.svg',
+      image: 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=800&q=80',
       features: ['Off-road capability', 'Luxury interior', 'Spacious', 'Iconic design'],
       priceRange: 'High'
     },
@@ -192,7 +191,7 @@ const App: React.FC = () => {
       id: 's-class',
       name: 'Mercedes-Benz S-Class',
       category: 'Sedan',
-      image: '/images/photo-1618843479313-40f8afb4b4d8.svg',
+      image: 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
       features: ['Executive comfort', 'Massage seats', 'Advanced safety', 'Smooth ride'],
       priceRange: 'Medium'
     },
@@ -200,7 +199,7 @@ const App: React.FC = () => {
       id: 'land-cruiser',
       name: 'Toyota Land Cruiser',
       category: 'SUV',
-      image: '/images/photo-1594502184342-2b54227d870c.svg',
+      image: 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
       features: ['Reliable', 'All-terrain', '7 Seater', 'Bulletproof options available'],
       priceRange: 'Medium'
     },
@@ -208,7 +207,7 @@ const App: React.FC = () => {
       id: 'hiace-bus',
       name: 'Toyota HiAce Luxury',
       category: 'Bus',
-      image: '/images/Toyota%20HiAce%20Luxury%2Cpng',
+      image: 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
       features: ['14 Seater', 'High roof', 'AC', 'Interstate travel'],
       priceRange: 'Low'
     },
@@ -216,7 +215,7 @@ const App: React.FC = () => {
       id: 'lexus-lx',
       name: 'Lexus LX 600',
       category: 'SUV',
-      image: '/images/photo-1533473359331-0135ef1b58bf.svg',
+      image: 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80',
       features: ['Luxury finish', 'Off-road ready', 'Spacious', 'Quiet cabin'],
       priceRange: 'High'
     }
@@ -439,7 +438,7 @@ const App: React.FC = () => {
           <div className="relative group">
             <div className="absolute -inset-4 bg-brand-blue/20 rounded-2xl transform rotate-3 group-hover:rotate-0 transition duration-500"></div>
             <img 
-              src={getImageSrc('/images/photo-1616432043562-3671ea0e5e85.svg')} 
+              src={'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80'} 
               alt="Delivery Rider" 
               onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
               className="relative rounded-2xl shadow-2xl w-full h-auto object-cover hover:scale-[1.02] transition duration-500 grayscale hover:grayscale-0"
