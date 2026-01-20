@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
+// Temporary: load clean app implementation while App.tsx is being fixed
+import App from './AppClean';
 
 const rootElement = document.getElementById('root');
 if (!rootElement) {
