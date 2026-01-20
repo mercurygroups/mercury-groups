@@ -92,11 +92,11 @@ const App: React.FC = () => {
         <h2 className="text-2xl font-bold mb-4">Fleet</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="rounded overflow-hidden border">
-            <img src={getImageSrc('./images/toyota-land-cruiser.png')} alt="Land Cruiser" onError={(e)=> (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'} className="w-full h-48 object-cover" />
+            <img src={getImageSrc('/images/toyota-land-cruiser.png')} alt="Land Cruiser" onError={(e)=> (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'} className="w-full h-48 object-cover" />
             <div className="p-4">Toyota Land Cruiser</div>
           </div>
           <div className="rounded overflow-hidden border">
-            <img src={getImageSrc('./images/private-jet.png')} alt="Jet" onError={(e)=> (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'} className="w-full h-48 object-cover" />
+            <img src={getImageSrc('/images/private-jet.png')} alt="Jet" onError={(e)=> (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'} className="w-full h-48 object-cover" />
             <div className="p-4">Private Jet</div>
           </div>
           <div className="rounded overflow-hidden border">
