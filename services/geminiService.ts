@@ -24,10 +24,7 @@ export const generateTravelResponse = async (userPrompt: string, history: { role
   }
 
   try {
-    // Use the correct model name for the v1beta API
-    const model = ai.getGenerativeModel({ model: 'gemini-pro' });
-    
-    // Construct a context-aware prompt
+    // Construct a context-aware prompt with conversation history
     const systemInstruction = `
       You are R&M AI, the intelligent virtual assistant for R&M Groups.
       R&M Groups is a premium travel and logistics agency.
@@ -52,9 +49,27 @@ export const generateTravelResponse = async (userPrompt: string, history: { role
     });
     conversationHistory += `User: ${userPrompt}\nAssistant:`;
 
-    const result = await model.generateContent(conversationHistory);
-    const response = await result.response;
-    return response.text() || "I'm sorry, I couldn't generate a response at this time.";
+    // Try different model names
+    const modelNames = ['gemini-1.5-flash', 'gemini-pro', 'gemini-1.0-pro'];
+    
+    for (const modelName of modelNames) {
+      try {
+        const response = await ai.generateText({
+          model: modelName,
+          prompt: conversationHistory,
+          temperature: 0.7,
+          maxOutputTokens: 200,
+        });
+        
+        return response.text || "I'm sorry, I couldn't generate a response at this time.";
+      } catch (modelError: any) {
+        console.log(`Model ${modelName} failed:`, modelError.message);
+        continue;
+      }
+    }
+    
+    throw new Error("All model attempts failed");
+    
   } catch (error: any) {
     console.error("Error calling Gemini API:", error);
     
