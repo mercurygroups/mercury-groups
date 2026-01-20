@@ -24,8 +24,8 @@ export const generateTravelResponse = async (userPrompt: string, history: { role
   }
 
   try {
-    // Use the correct model name for the new API
-    const model = ai.getGenerativeModel({ model: 'gemini-1.5-flash' });
+    // Use the correct model name for the v1beta API
+    const model = ai.getGenerativeModel({ model: 'gemini-pro' });
     
     // Construct a context-aware prompt
     const systemInstruction = `

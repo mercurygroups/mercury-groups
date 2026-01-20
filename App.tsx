@@ -85,7 +85,7 @@ const App: React.FC = () => {
       description: 'Fast-track processing and renewal assistance for international passports.',
       icon: <Globe className="w-8 h-8" />,
       category: 'travel',
-      image: 'https://images.unsplash.com/photo-1549673934-297e2501a402?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'visa',
@@ -117,7 +117,7 @@ const App: React.FC = () => {
       description: 'Fast delivery bikes for goods in Lagos, Port Harcourt, and Abuja.',
       icon: <Bike className="w-8 h-8" />,
       category: 'logistics',
-      image: 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80'
+      image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'insurance',
@@ -403,7 +403,7 @@ const App: React.FC = () => {
           <div className="relative group">
             <div className="absolute -inset-4 bg-brand-blue/20 rounded-2xl transform rotate-3 group-hover:rotate-0 transition duration-500"></div>
             <img 
-              src="https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80" 
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80" 
               alt="Delivery Rider" 
               className="relative rounded-2xl shadow-2xl w-full h-auto object-cover hover:scale-[1.02] transition duration-500 grayscale hover:grayscale-0"
             />
