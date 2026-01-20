@@ -52,7 +52,7 @@ export const generateTravelResponse = async (userPrompt: string, history: { role
 
     if (!text) {
       console.error('AI endpoint returned empty body', { status: resp.status });
-      return 'AI service currently unavailable. Please try again later.';
+      return `AI service currently unavailable (status ${resp.status}). Please check server logs.`;
     }
 
     // Try to parse JSON, fallback to using the text directly
@@ -67,8 +67,9 @@ export const generateTravelResponse = async (userPrompt: string, history: { role
     }
 
     if (!resp.ok) {
-      console.error('AI server error', parsed);
-      return 'AI service currently unavailable. Please try again later.';
+      console.error('AI server error', { status: resp.status, body: parsed || text });
+      const serverErr = parsed?.error || parsed?.message || text || `status ${resp.status}`;
+      return `AI service currently unavailable (${serverErr})`;
     }
 
     return parsed.text || 'No response from AI.';
