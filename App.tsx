@@ -1,148 +1,6 @@
 import React, { useState } from 'react';
-import { Plane, ArrowRight, Menu, X, CheckCircle2 } from 'lucide-react';
-import { ViewState } from './types';
-import AIChat from './components/AIChat';
-
-const USE_REMOTE_IMAGES = true;
-const IMAGE_FIT_URLS: Record<string, string> = {
-  'private-jet.png': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1200&q=80',
-  'toyota-land-cruiser.png': 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=1200&q=80',
-};
-
-function getImageSrc(localPath: string) {
-  if (!USE_REMOTE_IMAGES) return localPath;
-  const parts = localPath.split('/');
-  const filename = parts[parts.length - 1];
-  return IMAGE_FIT_URLS[filename] || localPath;
-}
-
-const App: React.FC = () => {
-  const [view, setView] = useState<ViewState>(ViewState.HOME);
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const renderHeader = () => (
-    <header className="sticky top-0 bg-white border-b">
-      <div className="max-w-7xl mx-auto flex items-center justify-between p-4">
-        <div className="flex items-center gap-3 cursor-pointer" onClick={() => setView(ViewState.HOME)}>
-          <div className="w-10 h-10 bg-black text-white flex items-center justify-center rounded">M</div>
-          <div>
-            <div className="font-bold">MERCURY GROUPS</div>
-            <div className="text-xs text-gray-500">Global Mobility</div>
-          </div>
-        </div>
-        <nav className="hidden md:flex gap-6">
-          <button onClick={() => setView(ViewState.HOME)}>Home</button>
-          <button onClick={() => setView(ViewState.SERVICES)}>Services</button>
-          <button onClick={() => setView(ViewState.FLEET)}>Fleet</button>
-          <button onClick={() => setView(ViewState.CONTACT)} className="bg-black text-white px-3 py-1 rounded">Contact</button>
-        </nav>
-        <div className="md:hidden">
-          <button onClick={() => setMobileOpen(s => !s)}>{mobileOpen ? <X /> : <Menu />}</button>
-        </div>
-      </div>
-      {mobileOpen && (
-        <div className="md:hidden p-4 border-t">
-          <button onClick={() => setView(ViewState.HOME)} className="block w-full text-left py-2">Home</button>
-          <button onClick={() => setView(ViewState.SERVICES)} className="block w-full text-left py-2">Services</button>
-          <button onClick={() => setView(ViewState.FLEET)} className="block w-full text-left py-2">Fleet</button>
-          <button onClick={() => setView(ViewState.CONTACT)} className="block w-full text-left py-2 font-semibold">Contact</button>
-        </div>
-      )}
-    </header>
-  );
-
-  const renderHero = () => (
-    <section className="bg-black text-white py-20">
-      <div className="max-w-5xl mx-auto px-4">
-        <h1 className="text-3xl md:text-5xl font-extrabold">Processing of Domestic & International Flights</h1>
-        <p className="mt-4 text-gray-300">Professional processing of flight bookings, passports and logistics.</p>
-        <div className="mt-6 flex gap-4">
-          <button onClick={() => setView(ViewState.CONTACT)} className="bg-blue-600 px-6 py-3 rounded flex items-center gap-2">Book a Service <ArrowRight /></button>
-          <button onClick={() => setView(ViewState.SERVICES)} className="border px-6 py-3 rounded">View Services</button>
-        </div>
-      </div>
-    </section>
-  );
-
-  const renderServices = () => (
-    <section className="py-12">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-4">Services</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="p-6 border rounded">
-            <div className="flex items-center gap-3"><Plane /> <h3 className="font-semibold">Flight Processing</h3></div>
-            <p className="text-sm mt-2 text-gray-600">Domestic and international flight bookings.</p>
-          </div>
-          <div className="p-6 border rounded">
-            <div className="flex items-center gap-3"><CheckCircle2 /> <h3 className="font-semibold">Passport & Visa</h3></div>
-            <p className="text-sm mt-2 text-gray-600">Passport renewal and visa assistance.</p>
-          </div>
-          <div className="p-6 border rounded">
-            <div className="flex items-center gap-3"><Plane /> <h3 className="font-semibold">Private Charters</h3></div>
-            <p className="text-sm mt-2 text-gray-600">Private jet and luxury transfers.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-
-  const renderFleet = () => (
-    <section className="py-12 bg-gray-50">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-4">Fleet</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="rounded overflow-hidden border">
-            <img src={getImageSrc('/images/toyota-land-cruiser.png')} alt="Land Cruiser" onError={(e)=> (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'} className="w-full h-48 object-cover" />
-            <div className="p-4">Toyota Land Cruiser</div>
-          </div>
-          <div className="rounded overflow-hidden border">
-            <img src={getImageSrc('/images/private-jet.png')} alt="Jet" onError={(e)=> (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'} className="w-full h-48 object-cover" />
-            <div className="p-4">Private Jet</div>
-          </div>
-          <div className="rounded overflow-hidden border">
-            <img src="/images/toyota-hiace-luxury.png" alt="Hiace" onError={(e)=> (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'} className="w-full h-48 object-cover" />
-            <div className="p-4">Toyota HiAce Luxury</div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-
-  const renderContact = () => (
-    <section className="py-12">
-      <div className="max-w-3xl mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-4">Contact Us</h2>
-        <p className="text-sm text-gray-600">Email: mercurygroups247@gmail.com</p>
-      </div>
-    </section>
-  );
-
-  const renderFooter = () => (
-    <footer className="py-8 border-t mt-12">
-      <div className="max-w-6xl mx-auto px-4 text-center text-sm text-gray-500">© {new Date().getFullYear()} Mercury Groups</div>
-    </footer>
-  );
-
-  return (
-    <div className="min-h-screen font-sans text-gray-800">
-      {renderHeader()}
-      <main>
-        {renderHero()}
-        {view === ViewState.SERVICES && renderServices()}
-        {view === ViewState.FLEET && renderFleet()}
-        {view === ViewState.CONTACT && renderContact()}
-      </main>
-      {renderFooter()}
-      <AIChat />
-    </div>
-  );
-};
-
-export default App;
-import React, { useState } from 'react';
 import { 
   Plane, 
-  ArrowRight,
   FileCheck, 
   ShieldCheck, 
   Briefcase, 
@@ -154,58 +12,24 @@ import {
   X, 
   Phone, 
   Mail, 
+  ArrowRight,
   CheckCircle2,
   Building2,
   Users,
-  Star,
-  Gauge
 } from 'lucide-react';
-import { ViewState, ServiceItem, Car } from './types';
 import AIChat from './components/AIChat';
-
-// Toggle to use remote Unsplash fit URLs instead of local images.
-// Set to `true` to load remote Unsplash images (may increase network requests).
-const USE_REMOTE_IMAGES = true;
-// Update values here to point to the Unsplash image you prefer for each local asset.
-const IMAGE_FIT_URLS: Record<string, string> = {
-  'photo-1506012787146-f92b2d7d6d96.svg': 'https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1920&q=80',
-  'photo-1436491865332-7a61a109cc05.svg': 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80',
-  'photo-1549673934-297e2501a402.svg': 'https://images.unsplash.com/photo-1549673934-297e2501a402?auto=format&fit=crop&w=800&q=80',
-    'photo-1587825140708-dfaf72ae4b04.svg': 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&q=80',
-    'photo-1550355291-bbee04a92027.svg': 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80',
-  'photo-1540962351574-729f633c78f0.svg': 'https://images.unsplash.com/photo-1540962351574-729f633c78f0?auto=format&fit=crop&w=800&q=80',
-  'photo-1616432043562-3671ea0e5e85.svg': 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80',
-  'photo-1454165804606-c3d57bc86b40.svg': 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80',
-  'photo-1469854523086-cc02fe5d8800.svg': 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80',
-  // fleet images
-  'photo-1621135802920-133df287f89c.svg': 'https://images.unsplash.com/photo-1621135802920-133df287f89c?auto=format&fit=crop&w=800&q=80',
-  'photo-1618843479313-40f8afb4b4d8.svg': 'https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=800&q=80',
-  'toyota-land-cruiser.png': 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
-  'toyota-hiace-luxury.png': 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
-  'private-jet.png': 'https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=800&q=80',
-  'logistics-delivery.png': 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80',
-  'photo-1533473359331-0135ef1b58bf.svg': 'https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=800&q=80'
-};
-
-function getImageSrc(localPath: string) {
-  if (!USE_REMOTE_IMAGES) return localPath;
-  const parts = localPath.split('/');
-  const filename = parts[parts.length - 1];
-  return IMAGE_FIT_URLS[filename] || localPath;
-}
+import { ViewState, ServiceItem, Car } from './types';
 
 const App: React.FC = () => {
   const [view, setView] = useState<ViewState>(ViewState.HOME);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [contactForm, setContactForm] = useState({
     name: '',
     service: 'Flight Booking',
     message: ''
   });
 
-  // Mobile menu state for small screens
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const toggleMenu = () => setMobileMenuOpen((s) => !s);
-
+  const toggleMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   const handleCarSelect = (carName: string) => {
     setContactForm(prev => ({
@@ -253,7 +77,7 @@ const App: React.FC = () => {
       description: 'Domestic and International flight tickets with best rate guarantees.',
       icon: <Plane className="w-8 h-8" />,
       category: 'travel',
-      image: '/images/photo-1436491865332-7a61a109cc05.svg'
+      image: 'https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'passport',
@@ -261,7 +85,7 @@ const App: React.FC = () => {
       description: 'Fast-track processing and renewal assistance for international passports.',
       icon: <Globe className="w-8 h-8" />,
       category: 'travel',
-      image: '/images/photo-1549673934-297e2501a402.svg'
+      image: 'https://images.unsplash.com/photo-1549673934-297e2501a402?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'visa',
@@ -269,7 +93,7 @@ const App: React.FC = () => {
       description: 'Expert guidance for tourist, conference, and business visas.',
       icon: <FileCheck className="w-8 h-8" />,
       category: 'travel',
-      image: '/images/photo-1587825140708-dfaf72ae4b04.svg'
+      image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'cars',
@@ -277,7 +101,7 @@ const App: React.FC = () => {
       description: 'Explore our premium fleet of SUVs, Sedans, and Supercars.',
       icon: <CarIcon className="w-8 h-8" />,
       category: 'luxury',
-      image: '/images/photo-1550355291-bbee04a92027.svg'
+      image: 'https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'jets',
@@ -285,7 +109,7 @@ const App: React.FC = () => {
       description: 'Exclusive private jet rentals for executive travel.',
       icon: <Plane className="w-8 h-8 rotate-45" />,
       category: 'luxury',
-      image: '/images/private-jet.png'
+      image: 'https://images.unsplash.com/photo-1540962351574-729f633c78f0?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'logistics',
@@ -293,7 +117,7 @@ const App: React.FC = () => {
       description: 'Fast delivery bikes for goods in Lagos, Port Harcourt, and Abuja.',
       icon: <Bike className="w-8 h-8" />,
       category: 'logistics',
-      image: '/images/logistics-delivery.png'
+      image: 'https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'insurance',
@@ -301,7 +125,7 @@ const App: React.FC = () => {
       description: 'Comprehensive travel insurance policies to keep you protected.',
       icon: <ShieldCheck className="w-8 h-8" />,
       category: 'travel',
-      image: '/images/photo-1454165804606-c3d57bc86b40.svg'
+      image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80'
     },
     {
       id: 'tours',
@@ -309,7 +133,7 @@ const App: React.FC = () => {
       description: 'Curated holiday and conference packages tailored to your needs.',
       icon: <MapPin className="w-8 h-8" />,
       category: 'travel',
-      image: '/images/photo-1469854523086-cc02fe5d8800.svg'
+      image: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?auto=format&fit=crop&w=800&q=80'
     }
   ];
 
@@ -342,7 +166,7 @@ const App: React.FC = () => {
       id: 'land-cruiser',
       name: 'Toyota Land Cruiser',
       category: 'SUV',
-      image: '/images/toyota-land-cruiser.png',
+      image: 'https://images.unsplash.com/photo-1594502184342-2b54227d870c?auto=format&fit=crop&w=800&q=80',
       features: ['Reliable', 'All-terrain', '7 Seater', 'Bulletproof options available'],
       priceRange: 'Medium'
     },
@@ -350,7 +174,7 @@ const App: React.FC = () => {
       id: 'hiace-bus',
       name: 'Toyota HiAce Luxury',
       category: 'Bus',
-      image: '/images/toyota-hiace-luxury.png',
+      image: 'https://images.unsplash.com/photo-1625916053360-1e5b8e957386?auto=format&fit=crop&w=800&q=80',
       features: ['14 Seater', 'High roof', 'AC', 'Interstate travel'],
       priceRange: 'Low'
     },
@@ -417,27 +241,27 @@ const App: React.FC = () => {
   const renderHero = () => (
     <div className="relative bg-brand-black text-white py-24 lg:py-40 overflow-hidden">
       <div className="absolute inset-0 z-0">
-            <img 
-              src="/images/private-jet.png" 
-              alt="Travel Hero" 
-              onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
-              className="w-full h-full object-cover opacity-40 grayscale"
-            />
+        <img 
+          src="https://images.unsplash.com/photo-1506012787146-f92b2d7d6d96?auto=format&fit=crop&w=1920&q=80" 
+          alt="Travel Hero" 
+          className="w-full h-full object-cover opacity-40 grayscale"
+        />
         <div className="absolute inset-0 bg-gradient-to-r from-brand-black via-brand-black/90 to-transparent"></div>
       </div>
       
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
+        <div className="max-w-4xl">
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
-            <span className="text-white">Processing of</span> <span className="text-brand-lightBlue">Domestic & International Flights</span>
+            <span className="text-white block">Processing of Flight</span> 
+            <span className="text-brand-lightBlue block">Domestic and International</span>
+            <span className="text-white block text-2xl md:text-4xl mt-2">Processing of Passport</span>
           </h1>
-          <p className="text-xl text-gray-300 mb-8 font-light leading-relaxed">
-            Professional processing of flight bookings and passport applications. 
-            Reliable logistics and luxury rentals in Nigeria.
+          <p className="text-xl text-gray-300 mb-8 font-light leading-relaxed max-w-2xl">
+            We handle the complexities of your travel. From passport renewals to international flight bookings and logistics across Nigeria.
           </p>
           <div className="flex flex-col sm:flex-row gap-4">
             <button onClick={() => setView(ViewState.CONTACT)} className="bg-brand-blue hover:bg-blue-700 text-white px-8 py-4 rounded-full font-bold transition flex items-center justify-center shadow-lg hover:shadow-brand-blue/50 border border-brand-blue">
-              Book a Service <ArrowRight className="ml-2 w-5 h-5" />
+              Start Processing <ArrowRight className="ml-2 w-5 h-5" />
             </button>
             <button onClick={() => setView(ViewState.SERVICES)} className="border border-white hover:bg-white hover:text-brand-black text-white px-8 py-4 rounded-full font-bold transition">
               View Services
@@ -445,27 +269,47 @@ const App: React.FC = () => {
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 
   const renderServicesGrid = () => (
-    <div className="text-center">
-      <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
-        Flight Processing • Passport Processing • Visa Assistance
-      </p>
+    <section className="py-20 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-brand-black mb-4">Our Core Services</h2>
+          <div className="w-20 h-1 bg-brand-blue mx-auto rounded"></div>
+          <p className="mt-4 text-gray-600 max-w-2xl mx-auto">
+             Streamlined processing for all your travel documents.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
-        {services.map((service) => (
-          <div
-            key={service.title}
-            className="bg-white p-6 rounded-lg shadow hover:shadow-lg transition cursor-pointer"
-            onClick={() => handleServiceClick(service)}
-          >
-            <h3 className="text-lg font-semibold">{service.title}</h3>
-            <p className="text-sm text-gray-600 mt-2">{service.description}</p>
-          </div>
-        ))}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {services.map((service) => (
+            <div 
+              key={service.id} 
+              onClick={() => handleServiceClick(service)}
+              className="bg-white rounded-2xl shadow-sm hover:shadow-2xl transition duration-300 border border-gray-100 group overflow-hidden flex flex-col cursor-pointer"
+            >
+              <div className="h-48 overflow-hidden relative bg-brand-black">
+                <img 
+                  src={service.image} 
+                  alt={service.title}
+                  className="w-full h-full object-cover group-hover:scale-110 transition duration-700 opacity-80"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+              </div>
+              <div className="p-6 relative flex-grow">
+                 <div className="absolute -top-10 right-6 bg-brand-white p-4 rounded-xl shadow-lg text-brand-blue border border-gray-100 group-hover:bg-brand-blue group-hover:text-white transition duration-300">
+                    {service.icon}
+                 </div>
+                <h3 className="text-xl font-bold text-brand-black mb-3 mt-2">{service.title}</h3>
+                <p className="text-gray-500 leading-relaxed text-sm mb-4">{service.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </section>
   );
 
   const renderFleet = () => (
@@ -480,10 +324,9 @@ const App: React.FC = () => {
           {fleet.map((car) => (
             <div key={car.id} className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 group flex flex-col">
               <div className="relative h-64 overflow-hidden bg-brand-black">
-                <img
-                  src={getImageSrc(car.image)}
-                  alt={car.name}
-                  onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
+                <img 
+                  src={car.image} 
+                  alt={car.name} 
                   className="w-full h-full object-cover group-hover:scale-105 transition duration-700 opacity-90"
                 />
                 <div className="absolute top-4 right-4 bg-brand-black/90 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider border border-white/20">
@@ -513,14 +356,22 @@ const App: React.FC = () => {
       </div>
     </section>
   );
-  const renderLogistics = () => (
-    <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-6">Swift Delivery Services</h2>
-            <p className="text-gray-600 text-lg mb-8 leading-relaxed">Efficient bike delivery services for goods and documents in Lagos, Abuja, and Port Harcourt.</p>
 
+  const renderLogistics = () => (
+    <section className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div>
+            <div className="inline-block bg-brand-blue/10 text-brand-blue px-4 py-1 rounded-full text-sm font-semibold mb-6">
+              Mercury Logistics
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-black mb-6">
+              Swift Delivery Services
+            </h2>
+            <p className="text-gray-600 text-lg mb-8 leading-relaxed">
+              Efficient bike delivery services for goods and documents in Lagos, Abuja, and Port Harcourt.
+            </p>
+            
             <div className="space-y-4 mb-8">
               <div className="flex items-center p-4 bg-gray-50 rounded-lg border border-gray-100 hover:border-brand-blue/30 transition">
                 <MapPin className="text-brand-blue w-6 h-6 mr-4" />
@@ -545,15 +396,15 @@ const App: React.FC = () => {
               </div>
             </div>
 
-            <button onClick={() => setView(ViewState.CONTACT)} className="bg-brand-black text-white px-8 py-3 rounded-lg hover:bg-brand-blue transition font-medium shadow-lg">Request Delivery</button>
+            <button onClick={() => setView(ViewState.CONTACT)} className="bg-brand-black text-white px-8 py-3 rounded-lg hover:bg-brand-blue transition font-medium shadow-lg">
+              Request Delivery
+            </button>
           </div>
-
           <div className="relative group">
             <div className="absolute -inset-4 bg-brand-blue/20 rounded-2xl transform rotate-3 group-hover:rotate-0 transition duration-500"></div>
-            <img
-              src={'/images/logistics-delivery.png'}
-              alt="Delivery Rider"
-              onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/placeholder.svg'; }}
+            <img 
+              src="https://images.unsplash.com/photo-1616432043562-3671ea0e5e85?auto=format&fit=crop&w=800&q=80" 
+              alt="Delivery Rider" 
               className="relative rounded-2xl shadow-2xl w-full h-auto object-cover hover:scale-[1.02] transition duration-500 grayscale hover:grayscale-0"
             />
           </div>
@@ -561,6 +412,7 @@ const App: React.FC = () => {
       </div>
     </section>
   );
+
   const renderContact = () => (
     <section className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
